@@ -1,0 +1,98 @@
+.imapper-container {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+.imapper-container img {
+    max-width: 100%;
+    height: auto;
+}
+.imapper-tooltip {
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    pointer-events: none;
+    line-height: 1.4;
+    width: 150px;
+    box-sizing: content-box; 
+    word-wrap: break-word;
+    opacity: 0;
+    visibility: hidden;
+    /* transition is a fallback for the 'none' animation */
+    transition: opacity 0.3s ease, visibility 0.3s ease; 
+}
+
+.imapper-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.imapper-tooltip .imapper-tooltip-title { margin: 0 0 10px; font-size: 16px; font-weight: bold; }
+.imapper-tooltip .imapper-tooltip-image img { width: 100%; max-width: 150px; height: auto; border-radius: 3px; display: block; margin-bottom: 10px; }
+.imapper-tooltip .imapper-tooltip-description { font-size: 13px; line-height: 1.5; display: none; }
+.imapper-fallback-notice { display: none; font-size: 11px; font-style: italic; opacity: 0.7; margin-top: 8px; border-top: 1px dashed #ccc; padding-top: 8px; }
+
+/* --- INTERACTION HINT STYLES --- */
+.imapper-hotspot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(29, 122, 225, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99;
+}
+[data-interaction-hint="hotspot"] .imapper-hotspot { animation: imapper-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1); }
+[data-interaction-hint="pulse-once"] .imapper-hotspot { width: 100px; height: 100px; border-radius: 50%; background: transparent; border: none; box-shadow: 0 0 15px 10px rgba(29, 122, 225, 0.7); animation: imapper-pulse-once 1.5s 2 ease-out; opacity: 0; }
+@keyframes imapper-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.95); box-shadow: 0 0 0 0 rgba(29, 122, 225, 0.7); }
+    70% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 10px rgba(29, 122, 225, 0); }
+    100% { transform: translate(-50%, -50%) scale(0.95); box-shadow: 0 0 0 0 rgba(29, 122, 225, 0); }
+}
+@keyframes imapper-pulse-once {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(0.1); }
+    to { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* --- TOOLTIP ANIMATION STYLES --- */
+.imapper-tooltip[data-animation="none"].visible { transition: none; }
+.imapper-tooltip[data-animation="fade-in"].visible { animation: imapper-fadeIn ease forwards; }
+.imapper-tooltip[data-animation="zoom-in"].visible { animation: imapper-zoomIn cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+.imapper-tooltip[data-animation="slide-up"].visible { animation: imapper-slideUp cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+.imapper-tooltip[data-animation="slide-down"].visible { animation: imapper-slideDown cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+.imapper-tooltip[data-animation="fall-in"].visible { animation: imapper-fallIn cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+.imapper-tooltip[data-animation="flip-in-x"].visible { animation: imapper-flipInX ease-in-out forwards; }
+.imapper-tooltip[data-animation="flip-in-y"].visible { animation: imapper-flipInY ease-in-out forwards; }
+.imapper-tooltip[data-animation="bounce-in"].visible { animation: imapper-bounceIn cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards; }
+.imapper-tooltip[data-animation="fade-in-up"].visible { animation: imapper-fadeInUp ease forwards; }
+.imapper-tooltip[data-animation="fade-in-down"].visible { animation: imapper-fadeInDown ease forwards; }
+.imapper-tooltip[data-animation="fade-in-left"].visible { animation: imapper-fadeInLeft ease forwards; }
+.imapper-tooltip[data-animation="fade-in-right"].visible { animation: imapper-fadeInRight ease forwards; }
+.imapper-tooltip[data-animation="bounce-in-up"].visible { animation: imapper-bounceInUp cubic-bezier(0.215, 0.61, 0.355, 1) forwards; }
+.imapper-tooltip[data-animation="bounce-in-down"].visible { animation: imapper-bounceInDown cubic-bezier(0.215, 0.61, 0.355, 1) forwards; }
+.imapper-tooltip[data-animation="rotate-in"].visible { animation: imapper-rotateIn cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+
+@keyframes imapper-fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes imapper-zoomIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes imapper-slideUp { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes imapper-slideDown { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes imapper-fallIn { 0% { opacity: 0; transform: translateY(-20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes imapper-flipInX { 0% { opacity: 0; transform: perspective(400px) rotate3d(1, 0, 0, 90deg); } 100% { opacity: 1; transform: perspective(400px) rotate3d(1, 0, 0, 0deg); } }
+@keyframes imapper-flipInY { 0% { opacity: 0; transform: perspective(400px) rotate3d(0, 1, 0, 90deg); } 100% { opacity: 1; transform: perspective(400px) rotate3d(0, 1, 0, 0deg); } }
+@keyframes imapper-bounceIn { 0% { opacity: 0; transform: scale(0.3); } 50% { opacity: 1; transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { transform: scale(1); } }
+@keyframes imapper-fadeInUp { 0% { opacity: 0; transform: translate3d(0, 20px, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes imapper-fadeInDown { 0% { opacity: 0; transform: translate3d(0, -20px, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes imapper-fadeInLeft { 0% { opacity: 0; transform: translate3d(-20px, 0, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes imapper-fadeInRight { 0% { opacity: 0; transform: translate3d(20px, 0, 0); } 100% { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes imapper-bounceInUp { 0%, 60%, 75%, 90%, 100% { transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); } 0% { opacity: 0; transform: translate3d(0, 3000px, 0); } 60% { opacity: 1; transform: translate3d(0, -20px, 0); } 75% { transform: translate3d(0, 10px, 0); } 90% { transform: translate3d(0, -5px, 0); } 100% { transform: translate3d(0, 0, 0); } }
+@keyframes imapper-bounceInDown { 0%, 60%, 75%, 90%, 100% { transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); } 0% { opacity: 0; transform: translate3d(0, -3000px, 0); } 60% { opacity: 1; transform: translate3d(0, 25px, 0); } 75% { transform: translate3d(0, -10px, 0); } 90% { transform: translate3d(0, 5px, 0); } 100% { transform: translate3d(0, 0, 0); } }
+@keyframes imapper-rotateIn { 0% { opacity: 0; transform: rotate(-200deg) scale(0); } 100% { opacity: 1; transform: rotate(0deg) scale(1); } }
