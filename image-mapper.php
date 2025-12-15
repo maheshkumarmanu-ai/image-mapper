@@ -4,6 +4,8 @@
 
  * Plugin Name:       Image Mapper
 
+  * Plugin URI:       https://github.com/maheshkumarmanu-ai/image-mapper
+
  * Description:       Create responsive interactive image maps with a visual coordinate selector.
 
  * Version:           2.4.0
@@ -138,3 +140,4 @@ function imapper_plugin_activation_migration() {
 
 
 register_activation_hook( __FILE__, 'imapper_plugin_activation_migration' );
+
