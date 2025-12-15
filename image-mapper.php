@@ -2,9 +2,7 @@
 
 /**
 
- * Plugin Name:       Image Mapper - Yemcoders
-
- * Plugin URI:        https://yemcoders.com/plugins/image-mapper
+ * Plugin Name:       Image Mapper
 
  * Description:       Create responsive interactive image maps with a visual coordinate selector.
 
@@ -137,5 +135,6 @@ function imapper_plugin_activation_migration() {
     add_option( 'imapper_migration_v221_complete', true );
 
 }
+
 
 register_activation_hook( __FILE__, 'imapper_plugin_activation_migration' );
